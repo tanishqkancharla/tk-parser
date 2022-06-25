@@ -1,0 +1,18 @@
+import { Parser } from "teg-parser";
+import { TKBlock } from "../TKBlock";
+import { RichTextContent, richTextParser } from "./richText";
+
+declare module "../TKBlock" {
+	interface TKBlockMap {
+		paragraph: { content: RichTextContent };
+	}
+}
+
+type ParagraphToken = TKBlock<"paragraph">;
+
+export const paragraphParser: Parser<ParagraphToken> = richTextParser.map(
+	(content) => ({
+		type: "paragraph",
+		content,
+	})
+);

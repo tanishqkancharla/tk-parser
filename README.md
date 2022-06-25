@@ -1,2 +1,2 @@
-# npm-ts-boilerplate
-A boilerplate for typescript packages for npm.
+# tk-parser
+A package that parses my personal blog post format `.tk`.
