@@ -1,6 +1,6 @@
 {
 	"name": "tk-parser",
-	"version": "0.0.3",
+	"version": "0.0.4",
 	"author": "Tanishq Kancharla <tanishqkancharla3@gmail.com>",
 	"description": "",
 	"keywords": [],
@@ -28,6 +28,6 @@
 		"typescript": "^4.6.4"
 	},
 	"dependencies": {
-		"teg-parser": "file:../teg"
+		"teg-parser": "^0.2.2"
 	}
 }
