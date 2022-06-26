@@ -7,16 +7,16 @@ describe("Parser", () => {
 		tkParser,
 		`
 ---
-title: Heading
-description: Description
+title: Create floors, not ceilings
+description: Description with multiple words
 date: 2021-07
 ---
 Whoa a block
 `,
 		{
 			metadata: {
-				title: "Heading",
-				description: "Description",
+				title: "Create floors, not ceilings",
+				description: "Description with multiple words",
 				date: "2021-07",
 			},
 			blocks: [

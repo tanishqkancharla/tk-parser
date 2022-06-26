@@ -17,7 +17,7 @@ export type FrontMatterToken = {
 	content: Record<string, FrontMatterValue>;
 };
 
-const frontMatterStringValueParser = strWithoutChars(["\n", ","]);
+const frontMatterStringValueParser = strWithoutChars(["\n"]);
 
 const frontMatterArrayValueParser = between(
 	str("["),

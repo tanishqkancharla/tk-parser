@@ -9,6 +9,8 @@ import {
 import { frontMatterParser } from "./blocks/frontmatter";
 import { tkBlock, TKBlock } from "./TKBlock";
 
+export { tkBlock, TKBlock };
+
 export type TKMetadata = Record<string, string | string[]>;
 
 export type TKDoc = {
