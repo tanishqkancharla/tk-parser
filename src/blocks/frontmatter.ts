@@ -8,18 +8,14 @@ import {
 	str,
 	zeroOrMore,
 } from "teg-parser";
-import { TKBlock } from "../TKBlock";
-import { concat, strWithoutChars } from "./parseUtils";
+import { concat, strWithoutChars } from "./utils";
 
 type FrontMatterValue = string | string[];
 
-declare module "../TKBlock" {
-	interface TKBlockMap {
-		frontmatter: { content: Record<string, FrontMatterValue> };
-	}
-}
-
-type FrontMatterToken = TKBlock<"frontmatter">;
+export type FrontMatterToken = {
+	type: "frontmatter";
+	content: Record<string, FrontMatterValue>;
+};
 
 const frontMatterStringValueParser = strWithoutChars(["\n", ","]);
 

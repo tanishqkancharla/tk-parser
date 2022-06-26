@@ -14,7 +14,7 @@ import {
 	takeUntilAfter,
 	zeroOrMore,
 } from "teg-parser";
-import { concat, identity } from "./parseUtils";
+import { concat, identity } from "./utils";
 
 function delimitedInlineTextParser(char: string): Parser<string> {
 	return between(

@@ -1,16 +1,11 @@
 import { Parser, sequence, str, takeUntilAfter } from "teg-parser";
-import { TKBlock } from "../TKBlock";
 
 // [Gem](https://moonrise.tk)
-const blockType = "blockLink";
-
-declare module "../TKBlock" {
-	interface TKBlockMap {
-		[blockType]: { content: string; href: string };
-	}
-}
-
-type BlockLinkToken = TKBlock<typeof blockType>;
+export type BlockLinkToken = {
+	type: "blockLink";
+	content: string;
+	href: string;
+};
 
 export const blockLinkParser: Parser<BlockLinkToken> = sequence([
 	str("["),

@@ -5,15 +5,11 @@ import {
 	str,
 	takeUntilAfter,
 } from "teg-parser";
-import { TKBlock } from "../TKBlock";
 
-declare module "../TKBlock" {
-	interface TKBlockMap {
-		date: { content: Date };
-	}
-}
-
-type DateToken = TKBlock<"date">;
+export type DateToken = {
+	type: "date";
+	content: Date;
+};
 
 /** Parse date */
 export const dateParser: Parser<DateToken> = takeUntilAfter(str("\n")).chain(

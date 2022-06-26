@@ -8,7 +8,10 @@ declare module "../TKBlock" {
 	}
 }
 
-type ParagraphToken = TKBlock<"paragraph">;
+export type ParagraphToken = {
+	type: "paragraph";
+	content: RichTextContent;
+};
 
 export const paragraphParser: Parser<ParagraphToken> = richTextParser.map(
 	(content) => ({

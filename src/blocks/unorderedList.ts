@@ -1,20 +1,14 @@
 import { line, maybe, nOrMore, Parser, prefix, str } from "teg-parser";
-import { TKBlock } from "../TKBlock";
-
-const blockType = "unorderedList";
 
 // Recursive types going on here, since list items can have their own internal
 // unordered list
-type ListItemContent = string | [string, TKBlock<"unorderedList">];
-export type UnorderedListContent = ListItemContent[];
+type ListItemContent = string | [string, UnorderedListToken];
+type UnorderedListContent = ListItemContent[];
 
-declare module "../TKBlock" {
-	interface TKBlockMap {
-		[blockType]: { listItems: UnorderedListContent };
-	}
-}
-
-type UnorderedListToken = TKBlock<typeof blockType>;
+export type UnorderedListToken = {
+	type: "unorderedList";
+	listItems: UnorderedListContent;
+};
 
 export const indentedListItemParser = (
 	indent: number

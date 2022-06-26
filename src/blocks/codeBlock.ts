@@ -7,17 +7,12 @@ import {
 	str,
 	takeUntilAfter,
 } from "teg-parser";
-import { TKBlock } from "../TKBlock";
 
-const blockType = "codeBlock";
-
-declare module "../TKBlock" {
-	interface TKBlockMap {
-		[blockType]: { lang?: string; content: string };
-	}
-}
-
-type CodeBlockToken = TKBlock<typeof blockType>;
+export type CodeBlockToken = {
+	type: "codeBlock";
+	lang?: string;
+	content: string;
+};
 
 export const langParser = prefix(str("```"), maybe(line)) //
 	.map((lang) => (lang === "" ? undefined : lang));

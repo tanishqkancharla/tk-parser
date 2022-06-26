@@ -1,18 +1,12 @@
 import { Parser, sequence, str, takeUntilAfter } from "teg-parser";
-import { TKBlock } from "../TKBlock";
 
 // [bookmark:https://moonrise.tk]
-const blockType = "bookmark";
+export type BookmarkToken = {
+	type: "bookmark";
+	url: string;
+};
 
-declare module "../TKBlock" {
-	interface TKBlockMap {
-		[blockType]: { url: string };
-	}
-}
-
-type BlockLinkToken = TKBlock<typeof blockType>;
-
-export const bookmarkParser: Parser<BlockLinkToken> = sequence([
+export const bookmarkParser: Parser<BookmarkToken> = sequence([
 	str("[bookmark:"),
 	takeUntilAfter(str("]")),
 	str("\n"),

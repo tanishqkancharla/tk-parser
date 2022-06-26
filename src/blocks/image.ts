@@ -8,21 +8,16 @@ import {
 	str,
 	takeUntilAfter,
 } from "teg-parser";
-import { TKBlock } from "../TKBlock";
-import { concat } from "./parseUtils";
+import { concat } from "./utils";
 
-// [image:/posts/ui-as-an-api/spotify-console.png](The Spotify API Console)
-const blockType = "image";
+// [image:/path/to/image.png](Image Caption)
+export type ImageToken = {
+	type: "image";
+	url: string;
+	caption?: string;
+};
 
-declare module "../TKBlock" {
-	interface TKBlockMap {
-		[blockType]: { url: string; caption: string | undefined };
-	}
-}
-
-type BlockLinkToken = TKBlock<typeof blockType>;
-
-export const imageParser: Parser<BlockLinkToken> = sequence([
+export const imageParser: Parser<ImageToken> = sequence([
 	str("[image:"),
 	takeUntilAfter(str("]")),
 	// Caption
