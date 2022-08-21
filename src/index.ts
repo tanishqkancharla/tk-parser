@@ -18,6 +18,8 @@ export type TKDoc = {
 	blocks: TKBlock[];
 };
 
+export const tkMetadataParser = frontMatterParser;
+
 export const tkParser: Parser<TKDoc> = sequence([
 	maybe(frontMatterParser),
 	zeroOrMore(tkBlock),
