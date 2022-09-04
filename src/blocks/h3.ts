@@ -5,6 +5,6 @@ export type H3Token = {
 	content: string;
 };
 
-export const h3Parser: Parser<H3Token> = prefix(str("### "), line).map(
-	(content) => ({ type: "h3", content })
-);
+export const h3Parser: Parser<H3Token> = prefix(str("### "), line)
+	.withErrorScope("Heading 3")
+	.map((content) => ({ type: "h3", content }));

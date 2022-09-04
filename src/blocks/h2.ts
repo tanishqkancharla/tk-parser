@@ -5,6 +5,6 @@ export type H2Token = {
 	content: string;
 };
 
-export const h2Parser: Parser<H2Token> = prefix(str("## "), line).map(
-	(content) => ({ type: "h2", content })
-);
+export const h2Parser: Parser<H2Token> = prefix(str("## "), line)
+	.withErrorScope("Heading 2")
+	.map((content) => ({ type: "h2", content }));

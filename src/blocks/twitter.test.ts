@@ -1,12 +1,11 @@
-import { testParser } from "./testParser";
+import { testParser } from "teg-parser/testParser";
 import { tweetParser } from "./twitter";
 
 describe("twitter", () => {
 	testParser(
 		"tweet",
 		tweetParser,
-		`
-    [tweet:https://twitter.com/joeyabanks/status/1417505963272249346?s=21]\n`,
+		`[tweet:https://twitter.com/joeyabanks/status/1417505963272249346?s=21]\n`,
 		{
 			type: "tweet",
 			url: "https://twitter.com/joeyabanks/status/1417505963272249346?s=21",

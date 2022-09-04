@@ -1,4 +1,4 @@
-import { line, maybe, nOrMore, Parser, prefix, str } from "teg-parser";
+import { char, line, maybe, oneOrMore, Parser, prefix, str } from "teg-parser";
 
 // Recursive types going on here, since list items can have their own internal
 // unordered list
@@ -13,9 +13,10 @@ export type UnorderedListToken = {
 export const indentedListItemParser = (
 	indent: number
 ): Parser<ListItemContent> =>
-	prefix(str(" ".repeat(indent) + "- "), line)
+	prefix(str("  ".repeat(indent) + "- "), line)
+		.withErrorScope("Indented List Item")
 		.chain((firstContent) =>
-			maybe(indentedUnorderedListParser(indent + 2)).map(
+			maybe(prefix(char("\n"), indentedUnorderedListParser(indent + 1))).map(
 				(indentedList) => [firstContent, indentedList] as const
 			)
 		)
@@ -26,10 +27,12 @@ export const indentedListItemParser = (
 export const indentedUnorderedListParser = (
 	indent: number
 ): Parser<UnorderedListToken> =>
-	nOrMore(1, indentedListItemParser(indent)).map((listItems) => ({
-		type: "unorderedList",
-		listItems,
-	}));
+	oneOrMore(indentedListItemParser(indent), char("\n"))
+		.withErrorScope("Indented Unordered List")
+		.map((listItems) => ({
+			type: "unorderedList",
+			listItems,
+		}));
 
 export const unorderedListParser: Parser<UnorderedListToken> =
-	indentedUnorderedListParser(0);
+	indentedUnorderedListParser(0).withErrorScope("Unordered List");

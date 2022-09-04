@@ -9,4 +9,5 @@ export const tweetParser: Parser<TwitterToken> = prefix(
 	str("[tweet:"),
 	takeUntilAfter(str("]\n"))
 ) //
+	.withErrorScope("Tweet")
 	.map((url) => ({ type: "tweet", url }));

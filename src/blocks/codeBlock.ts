@@ -1,11 +1,12 @@
 import {
+	between,
+	char,
 	line,
 	maybe,
 	Parser,
-	prefix,
 	sequence,
 	str,
-	takeUntilAfter,
+	takeUpTo,
 } from "teg-parser";
 
 export type CodeBlockToken = {
@@ -14,7 +15,8 @@ export type CodeBlockToken = {
 	content: string;
 };
 
-export const langParser = prefix(str("```"), maybe(line)) //
+export const langParser = between(str("```"), maybe(line), char("\n"))
+	.withErrorScope("Lang")
 	.map((lang) => (lang === "" ? undefined : lang));
 
 function cleanContent(content: string): string {
@@ -23,8 +25,10 @@ function cleanContent(content: string): string {
 
 export const codeBlockParser: Parser<CodeBlockToken> = sequence([
 	langParser,
-	takeUntilAfter(str("\n```\n")),
+	takeUpTo(str("\n```")),
+	str("\n```"),
 ]) //
+	.withErrorScope("Code Block")
 	.map(([lang, rawContent]) => ({
 		type: "codeBlock",
 		lang,

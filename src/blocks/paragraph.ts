@@ -13,9 +13,9 @@ export type ParagraphToken = {
 	content: RichTextContent;
 };
 
-export const paragraphParser: Parser<ParagraphToken> = richTextParser.map(
-	(content) => ({
+export const paragraphParser: Parser<ParagraphToken> = richTextParser
+	.withErrorScope("Paragraph")
+	.map((content) => ({
 		type: "paragraph",
 		content,
-	})
-);
+	}));

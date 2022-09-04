@@ -7,6 +7,7 @@ import {
 	zeroOrMore,
 } from "teg-parser";
 import { frontMatterParser } from "./blocks/frontmatter";
+import { newLine } from "./blocks/newLine";
 import { tkBlock, TKBlock } from "./TKBlock";
 
 export { tkBlock, TKBlock };
@@ -20,10 +21,10 @@ export type TKDoc = {
 
 export const tkMetadataParser = frontMatterParser;
 
-export const tkParser: Parser<TKDoc> = sequence([
-	maybe(frontMatterParser),
-	zeroOrMore(tkBlock),
-]).map(([frontMatterToken, blocks]) => ({
+export const tkParser: Parser<TKDoc> = sequence(
+	[maybe(frontMatterParser), zeroOrMore(tkBlock)],
+	newLine
+).map(([frontMatterToken, blocks]) => ({
 	metadata: frontMatterToken?.content || {},
 	blocks,
 }));

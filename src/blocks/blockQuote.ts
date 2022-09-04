@@ -1,4 +1,4 @@
-import { nOrMore, Parser, prefix, str } from "teg-parser";
+import { char, oneOrMore, Parser, prefix, str } from "teg-parser";
 import { RichTextContent, richTextParser } from "./richText";
 
 // | This
@@ -9,7 +9,9 @@ export type BlockQuoteToken = {
 	content: RichTextContent[];
 };
 
-export const blockquoteParser: Parser<BlockQuoteToken> = nOrMore(
-	1,
-	prefix(str("| "), richTextParser)
-).map((content) => ({ type: "blockquote", content }));
+export const blockquoteParser: Parser<BlockQuoteToken> = oneOrMore(
+	prefix(str("| "), richTextParser),
+	char("\n")
+)
+	.withErrorScope("Blockquote")
+	.map((content) => ({ type: "blockquote", content }));

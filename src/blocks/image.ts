@@ -23,5 +23,6 @@ export const imageParser: Parser<ImageToken> = sequence([
 	// Caption
 	maybe(between(str("("), oneOrMore(not(str(")"))), str(")"))),
 ])
+	.withErrorScope("Image")
 	.map((seq) => [seq[1], seq[2] ? concat(seq[2]) : undefined] as const)
 	.map(([url, caption]) => ({ type: "image", url, caption }));

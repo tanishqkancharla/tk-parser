@@ -1,28 +1,26 @@
-import { isParseSuccess } from "teg-parser";
-import { assert, assertEqual } from "../assertUtils";
+import { testParser } from "teg-parser/testParser";
 import { imageParser } from "./image";
 
 describe("image", () => {
-	it("works", () => {
-		const result = imageParser.run(
-			"[image:/posts/ui-as-an-api/spotify-console.png](The Spotify API Console)"
-		);
-		assert.ok(isParseSuccess(result));
+	testParser(
+		"works",
+		imageParser,
+		"[image:/posts/ui-as-an-api/spotify-console.png](The Spotify API Console)",
+		{
+			type: "image",
+			url: "/posts/ui-as-an-api/spotify-console.png",
+			caption: "The Spotify API Console",
+		}
+	);
 
-		assert.ok(result.stream.isEmpty);
-
-		assertEqual(result.value.url, "/posts/ui-as-an-api/spotify-console.png");
-		assertEqual(result.value.caption, "The Spotify API Console");
-	});
-
-	it("works without caption", () => {
-		const result = imageParser.run(
-			"[image:/posts/ui-as-an-api/spotify-console.png]"
-		);
-		assert.ok(isParseSuccess(result));
-
-		assert.ok(result.stream.isEmpty);
-
-		assertEqual(result.value.url, "/posts/ui-as-an-api/spotify-console.png");
-	});
+	testParser(
+		"works without caption",
+		imageParser,
+		"[image:/posts/ui-as-an-api/spotify-console.png]",
+		{
+			type: "image",
+			url: "/posts/ui-as-an-api/spotify-console.png",
+			caption: undefined,
+		}
+	);
 });

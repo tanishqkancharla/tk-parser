@@ -16,7 +16,7 @@ import { h1Parser as h1, H1Token } from "./blocks/h1";
 import { h2Parser as h2, H2Token } from "./blocks/h2";
 import { h3Parser as h3, H3Token } from "./blocks/h3";
 import { imageParser, ImageToken } from "./blocks/image";
-import { newLineParser as newLine, NewLineToken } from "./blocks/newLine";
+import { newLine, NewLineToken } from "./blocks/newLine";
 import {
 	paragraphParser as paragraph,
 	ParagraphToken,

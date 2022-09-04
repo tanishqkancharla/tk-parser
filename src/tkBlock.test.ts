@@ -1,5 +1,6 @@
 import { isParseSuccess, zeroOrMore } from "teg-parser";
-import { assert, assertEqual } from "./assertUtils";
+import { testParser } from "teg-parser/testParser";
+import { assert } from "./assertUtils";
 import { tkBlock } from "./TKBlock";
 
 describe("tkBlock", () => {
@@ -37,19 +38,14 @@ describe("tkBlock", () => {
 		}
 	});
 
-	it("Correct parses spaces between paragraphs", () => {
-		const tk = `
+	testParser(
+		"Correct parses spaces between paragraphs",
+		zeroOrMore(tkBlock),
+		`
 Hey! 🙋🏾‍♂️ I'm Tanishq. Moonrise is my personal website. I mostly use it as a space to express myself.
-
 I love thinking about rich text editors, extensible programming languages, and just expressive, fun, robust interfaces to software.
-
-I recently graduated from Carnegie Mellon University majoring in physics and computer science, and I'm currently looking for my next opportunity.
-        `;
-
-		const result = zeroOrMore(tkBlock).run(tk);
-
-		assert(result.stream);
-		assertEqual(result.value, [
+I recently graduated from Carnegie Mellon University majoring in physics and computer science, and I'm currently looking for my next opportunity.`,
+		[
 			{ type: "newLine" },
 			{
 				type: "paragraph",
@@ -83,6 +79,6 @@ I recently graduated from Carnegie Mellon University majoring in physics and com
 					},
 				],
 			},
-		]);
-	});
+		]
+	);
 });

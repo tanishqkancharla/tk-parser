@@ -17,6 +17,9 @@
 
 		"strict": true,
 		"skipLibCheck": true
+		// "paths": {
+		// 	"teg-parser/testParser": ["./teg-parer/dist/testParser.js"]
+		// }
 	},
 	"include": ["src/index.ts"],
 	"exclude": ["node_modules"]

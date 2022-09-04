@@ -12,7 +12,7 @@ export const blockLinkParser: Parser<BlockLinkToken> = sequence([
 	takeUntilAfter(str("]")),
 	str("("),
 	takeUntilAfter(str(")")),
-	str("\n"),
 ])
+	.withErrorScope("Blocklink")
 	.map((seq) => [seq[1], seq[3]])
 	.map(([content, href]) => ({ type: "blockLink", content, href }));

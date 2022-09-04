@@ -1,15 +1,9 @@
+import { testParser } from "teg-parser/testParser";
 import { bookmarkParser } from "./bookmark";
-import { testParser } from "./testParser";
 
 describe("bookmark", () => {
-	testParser(
-		"bookmark",
-		bookmarkParser,
-		`
-    [bookmark:https://gem.moonrise.tk]\n`,
-		{
-			type: "bookmark",
-			url: "https://gem.moonrise.tk",
-		}
-	);
+	testParser("bookmark", bookmarkParser, `[bookmark:https://gem.moonrise.tk]`, {
+		type: "bookmark",
+		url: "https://gem.moonrise.tk",
+	});
 });

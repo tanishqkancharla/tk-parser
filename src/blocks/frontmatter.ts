@@ -47,14 +47,16 @@ const frontMatterDeclParser = sequence([
 export const frontMatterParser: Parser<FrontMatterToken> = between(
 	str("---\n"),
 	zeroOrMore(frontMatterDeclParser),
-	str("---\n")
-).map((keyValuePairs) => {
-	const content: Record<string, FrontMatterValue> = {};
+	str("---")
+)
+	.map((keyValuePairs) => {
+		const content: Record<string, FrontMatterValue> = {};
 
-	for (const keyValuePair of keyValuePairs) {
-		const [key, value] = keyValuePair;
-		content[key] = value;
-	}
+		for (const keyValuePair of keyValuePairs) {
+			const [key, value] = keyValuePair;
+			content[key] = value;
+		}
 
-	return { type: "frontmatter", content };
-});
+		return { type: "frontmatter" as const, content };
+	})
+	.withErrorScope("Front Matter");

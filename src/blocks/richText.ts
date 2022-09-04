@@ -74,7 +74,9 @@ export type RichTextContent = RichTextToken[];
 export const richTextParser: Parser<RichTextToken[]> = line.fold((result) => {
 	const richText = oneOrMore<RichTextToken, never>(
 		oneOf([italicParser, boldParser, codeParser, linkParser, plainParser])
-	).run(result.value);
+	)
+		.withErrorScope("Rich text")
+		.run(result.value);
 	// We want to parse the line but keep the rest of the stream.
 	if (isParseSuccess(richText)) {
 		return new ParseSuccess(richText.value, result.stream);

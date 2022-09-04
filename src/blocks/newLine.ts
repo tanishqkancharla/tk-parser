@@ -4,6 +4,8 @@ export type NewLineToken = {
 	type: "newLine";
 };
 
-export const newLineParser: Parser<NewLineToken> = str("\n").map((char) => ({
-	type: "newLine",
-}));
+export const newLine: Parser<NewLineToken> = str("\n")
+	.withErrorScope("Newline")
+	.map((char) => ({
+		type: "newLine",
+	}));
