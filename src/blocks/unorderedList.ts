@@ -1,8 +1,9 @@
-import { char, line, maybe, oneOrMore, Parser, prefix, str } from "teg-parser";
+import { char, maybe, oneOrMore, Parser, prefix, str } from "teg-parser";
+import { RichTextContent, richTextParser } from "./richText";
 
 // Recursive types going on here, since list items can have their own internal
 // unordered list
-type ListItemContent = string | [string, UnorderedListToken];
+type ListItemContent = RichTextContent | [RichTextContent, UnorderedListToken];
 type UnorderedListContent = ListItemContent[];
 
 export type UnorderedListToken = {
@@ -13,7 +14,7 @@ export type UnorderedListToken = {
 export const indentedListItemParser = (
 	indent: number
 ): Parser<ListItemContent> =>
-	prefix(str("  ".repeat(indent) + "- "), line)
+	prefix(str("  ".repeat(indent) + "- "), richTextParser)
 		.withErrorScope("Indented List Item")
 		.chain((firstContent) =>
 			maybe(prefix(char("\n"), indentedUnorderedListParser(indent + 1))).map(

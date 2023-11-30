@@ -30,19 +30,19 @@ export const italicParser: Parser<ItalicToken> = delimitedInlineTextParser(
 	"_"
 ).map((content) => ({ type: "italic", content }));
 
-type BoldToken = { type: "bold"; content: string };
+export type BoldToken = { type: "bold"; content: string };
 
 export const boldParser: Parser<BoldToken> = delimitedInlineTextParser("*").map(
 	(content) => ({ type: "bold", content })
 );
 
-type CodeToken = { type: "code"; content: string };
+export type CodeToken = { type: "code"; content: string };
 
 export const codeParser: Parser<CodeToken> = delimitedInlineTextParser("`").map(
 	(content) => ({ type: "code", content })
 );
 
-type LinkToken = { type: "link"; content: string; href: string };
+export type LinkToken = { type: "link"; content: string; href: string };
 
 export const linkParser: Parser<LinkToken> = sequence([
 	str("["),
@@ -53,7 +53,7 @@ export const linkParser: Parser<LinkToken> = sequence([
 	.map((seq) => [seq[1], seq[3]])
 	.map(([content, href]) => ({ type: "link", content, href }));
 
-type PlainToken = { type: "plain"; content: string };
+export type PlainToken = { type: "plain"; content: string };
 
 export const plainParser: Parser<PlainToken> = nOrMore(
 	1,
